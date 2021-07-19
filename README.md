@@ -13,4 +13,4 @@ A simple calendar application that allows the user to save events for each hour 
 * Moment.js
 
 # Deployed at
-https://blofland.github.io/git-it-done/
+https://blofland.github.io/work-day-scheduler/
