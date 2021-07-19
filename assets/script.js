@@ -1,14 +1,15 @@
 
 
 $(document).ready(function () {// tells engine to load 1)html & 2)css first.
-    //display current day & time.
-    $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a")); // use of moment.js
-    //assign saveBtn click listener for user input and time stamp??
+   
+    //display current day.
+    $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a")); 
+    //button function
     $(".saveBtn").on("click", function () {
-        //get nearby values.
+    
         console.log(this);
-        var text = $(this).siblings(".description").val(); // taken the change from the sibling html description attribute
-        var time = $(this).parent().attr("id"); // taken the change from the parent html id attribute
+        var text = $(this).siblings(".description").val(); 
+        var time = $(this).parent().attr("id"); 
 
         //set items in local storage.
         localStorage.setItem(time, text);
@@ -25,3 +26,32 @@ $(document).ready(function () {// tells engine to load 1)html & 2)css first.
     $("#hour9 .description").val(localStorage.getItem("hour9"));
   
 })
+
+function hourUpdater() {
+    // get current number of hours
+    var currentHour = moment().hours();
+
+    // loop over time blocks
+    $(".time-block").each(function() {
+      var blockHour = parseInt($(this).attr("id").split("-")[1]);
+
+      // color the blocks by adding classes
+      if (blockHour < currentHour) {
+        $(this).addClass("past");
+      } 
+      else if (blockHour === currentHour) {
+        $(this).removeClass("past");
+        $(this).addClass("present");
+      } 
+      else {
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+        $(this).addClass("future");
+      }
+    });
+  }
+
+  hourUpdater();
+
+  // see if current time needs to be updated
+  var interval = setInterval(hourUpdater, 15000);
